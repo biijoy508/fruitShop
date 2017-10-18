@@ -66,6 +66,10 @@ public class MenyHanterare {
                 HanteraGrossister grossister = new HanteraGrossister();
                 grossister.skapaNyGrossist();
                 break;
+
+            case '5':
+                HanteraFrukt frukthanterare = new HanteraFrukt();
+
             default:
                 break;
         }
@@ -91,6 +95,7 @@ public class MenyHanterare {
         System.out.println("2. Lägg till beställning");
         System.out.println("3. Lista grossister");
         System.out.println("4. Lägg till grossist");
+        System.out.println("5. Lägg till frukt");
         System.out.println("0. Avsluta");
     }
 
