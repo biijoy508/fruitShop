@@ -11,7 +11,7 @@ public class HanteraGrossister {
     public void skapaNyGrossist() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Skriv in namn");
-        String namn = scanner.next();
+        String namn = scanner.nextLine();
 
         Grossist grossist = new Grossist();
         grossist.setNamn(namn);
