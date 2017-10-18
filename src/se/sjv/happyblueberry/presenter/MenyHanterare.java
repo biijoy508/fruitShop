@@ -69,6 +69,7 @@ public class MenyHanterare {
 
             case '5':
                 HanteraFrukt frukthanterare = new HanteraFrukt();
+                break;
 
             default:
                 break;

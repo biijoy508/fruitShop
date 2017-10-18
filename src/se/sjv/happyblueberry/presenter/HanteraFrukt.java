@@ -15,34 +15,44 @@ public class HanteraFrukt {
 
     private void läggTillFrukt(){
 
-        System.out.println("I lagret finns följande");
-        System.out.print(lager.toString());
         Scanner inputReader = null;
-        String fruktAttLäggaTill = promptForFrukt(inputReader);
-        int fruktAntal = promptForAntal(inputReader);
+
+        System.out.println("Lägg till frukt: ");
+        String fruktAttLäggaTill = promptForString(inputReader);
+
+        System.out.println("Ange hur många: ");
+        int fruktAntal = (int) promptForSiffra(inputReader);
+
+        System.out.println("Ange styckpris: ");
+        double pris = promptForSiffra(inputReader);
 
         Vara vara = new Vara();
 
+        vara.setType(fruktAttLäggaTill);
+        vara.setAmount(fruktAntal);
+        vara.setPrice(pris);
+
+        lager.lagerMap.put(vara.getType(), vara);
     }
 
-    private String promptForFrukt(Scanner scanner) {
+    private String promptForString(Scanner scanner) {
         scanner = new Scanner(System.in);
-        System.out.println("Lägg till en frukt:");
-        String valdFrukt = scanner.next();
+        String string = scanner.next();
 
-        return valdFrukt;
+        return string;
     }
 
-    private int promptForAntal(Scanner scanner){
-        int antal = 0;
+
+
+    private double promptForSiffra(Scanner scanner){
+        double nummer = 0;
         scanner = new Scanner(System.in);
-        System.out.println("Lägg till en frukt:");
         boolean okInput = false;
         do
         {
         try{
         okInput = true;
-        antal = scanner.nextInt();
+        nummer = scanner.nextDouble();
         }catch(InputMismatchException e){
             System.out.println("Måste vara en siffra. I nummerformat.");
             okInput = false;
@@ -50,27 +60,7 @@ public class HanteraFrukt {
         }while(!okInput);
 
 
-        return antal;
-    }
-
-    private double promptForPris(Scanner scanner){
-        double pris = 0;
-        scanner = new Scanner(System.in);
-        System.out.println("Lägg till en frukt:");
-        boolean okInput = false;
-        do
-        {
-        try{
-        okInput = true;
-        pris = scanner.nextDouble();
-        }catch(InputMismatchException e){
-            System.out.println("Måste vara en siffra. I nummerformat.");
-            okInput = false;
-        }
-        }while(!okInput);
-
-
-        return pris;
+        return nummer;
     }
 
 }
