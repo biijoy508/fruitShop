@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import se.sjv.happyblueberry.models.Vara;
+import se.sjv.happyblueberry.util.GeneralPurposeTools;
 
 public class Lager {
 
@@ -28,6 +29,7 @@ public class Lager {
     public void taVara(final Vara vara, final int antal) {
         int nyttAntal = lagerMap.get(vara.getType()).getAmount() - antal;
         lagerMap.get(vara.getType()).setAmount(nyttAntal);
+        GeneralPurposeTools.varnaFörLågtLagerSaldo(vara.getType());
     }
 
     @Override

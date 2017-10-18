@@ -3,7 +3,9 @@ package se.sjv.happyblueberry.presenter;
 import java.util.Scanner;
 
 import se.sjv.happyblueberry.models.Grossist;
+import se.sjv.happyblueberry.models.Vara;
 import se.sjv.happyblueberry.persistence.Grossister;
+import se.sjv.happyblueberry.util.GeneralPurposeTools;
 
 public class HanteraGrossister {
     String frukt = "";
@@ -25,6 +27,14 @@ public class HanteraGrossister {
         } while (!frukt.equals("s"));
 
         Grossister grossister = Grossister.getInstance();
-        grossister.grossistLista.add(grossist);
+        grossister.grossistMap.put(grossist.getNamn(), grossist);
+    }
+
+    public void skapaNyGrossistMedVara(final Vara vara){
+        Grossist grossist = new Grossist();
+        grossist.setNamn(GeneralPurposeTools.generateRandomGrossistName());
+        grossist.setOrderMinimiantal(vara.getAmount());
+        grossist.läggTillVara(vara);
+        Grossister.getInstance().grossistMap.put(grossist.getNamn(), grossist);
     }
 }

@@ -1,14 +1,15 @@
 package se.sjv.happyblueberry.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class Grossist {
     private String namn;
-    private List<String> varuLista;
+    //private List<String> varuLista;
+    private HashMap<String, Vara> varuMap;
+    private int orderMinimiantal = 0;
 
     public Grossist(){
-        varuLista = new ArrayList<String>();
+        varuMap = new HashMap<>();
     }
     public String getNamn() {
         return namn;
@@ -18,27 +19,37 @@ public class Grossist {
         this.namn = namn;
     }
 
-    public List<String> getVaruLista() {
-        return varuLista;
+    public HashMap<String, Vara> getVaruMap() {
+        return varuMap;
+    }
+    public void setVaruMap(final HashMap<String, Vara> varuMap) {
+        this.varuMap = varuMap;
     }
 
-    public void setVaruLista(final List<String> varuLista) {
-        this.varuLista = varuLista;
+    public void läggTillVara(final Vara vara){
+        varuMap.put(vara.getType(), vara);
     }
 
     public void läggTillVara(final String vara){
-        varuLista.add(vara);
+        varuMap.put(vara, new Vara(vara));
     }
 
+
+    public int getOrderMinimiantal() {
+        return orderMinimiantal;
+    }
+    public void setOrderMinimiantal(final int orderMinimiantal) {
+        this.orderMinimiantal = orderMinimiantal;
+    }
     @Override
     public String toString() {
         StringBuilder sBuilder = new StringBuilder();
         sBuilder.append(namn);
-        for(String vara : varuLista) {
-            sBuilder.append(String.format("%n-%s", vara));
+        for(Vara vara : varuMap.values()) {
+            sBuilder.append(String.format("%n-%s", vara.getType()));
         }
 
-        return sBuilder.toString();
+        return sBuilder.toString() + "\n";
     }
 
 }

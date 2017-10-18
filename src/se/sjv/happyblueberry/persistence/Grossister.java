@@ -2,19 +2,19 @@ package se.sjv.happyblueberry.persistence;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import se.sjv.happyblueberry.models.Grossist;
+import se.sjv.happyblueberry.models.Vara;
 import se.sjv.happyblueberry.util.FileUtil;
 
 public class Grossister {
 
-    public List<Grossist> grossistLista;
-
     private static Grossister grossister;
+    public HashMap<String, Grossist> grossistMap;
 
     private Grossister() {
-        grossistLista = new ArrayList<Grossist>();
+        grossistMap = new HashMap<>();
         laddaGrossister();
     }
 
@@ -32,14 +32,11 @@ public class Grossister {
             for (int i = 0; i < inputList.length; ++i) {
                 if (inputList[i].length() > 0) {
                     Grossist grossist = extractGrossist(inputList[i]);
-                    grossistLista.add(grossist);
-
+                    grossistMap.put(grossist.getNamn(), grossist);
                 }
             }
         } catch (IOException e) {
             System.out.println("Problem uppstod vid läsning av grossister.");
-            grossistLista = new ArrayList<Grossist>();
-
             e.printStackTrace();
         }
 
@@ -59,10 +56,10 @@ public class Grossister {
 
     public void sparaGrossister() {
     ArrayList<String> output = new ArrayList<>();
-    for(Grossist grossist: grossistLista){
+    for(Grossist grossist: grossistMap.values()){
         output.add(grossist.getNamn());
-        for(String vara: grossist.getVaruLista()){
-           output.add(";" + vara);
+        for(Vara vara: grossist.getVaruMap().values()){
+           output.add(";" + vara.getType());
         }
         output.add(System.lineSeparator());
     }

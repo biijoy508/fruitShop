@@ -1,8 +1,9 @@
-Frukt AB;Banan;Äpple;Päron
-Grönt och skönt AB;Kiwi;Äpple;Melon
-Fruktis AB;Banan;Äpple;Apelsin
-Nyttobollen AB;Kiwi;Banan;Apelsin
 Apelsin is the best AB;Apelsin
-Fruktmästarna AB;Banan;Äpple;Apelsin;Päron;Kiwi
+Fruktis AB;Banan;Äpple;Apelsin
 Fruktmix AB;Banan;Kiwi;Päron
+Fruktmästarna AB;Banan;Äpple;Kiwi;Apelsin;Päron
 Fruktjättarna;Banan;Äpple
+Monir PartiHandel;Mango;Ananas
+Frukt AB;Banan;Äpple;Päron
+Nyttobollen AB;Kiwi;Banan;Apelsin
+Grönt och skönt AB;Kiwi;Äpple;Melon

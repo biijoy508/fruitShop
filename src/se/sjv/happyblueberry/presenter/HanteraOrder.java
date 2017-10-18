@@ -50,7 +50,7 @@ public class HanteraOrder {
 
         if (input == PLACE_ORDER) {
             System.out.println("Skriv in namn");
-            String namn = scanner.next();
+            String namn = scanner.nextLine();
             order.setKund(namn);
             String[] foljesedel = skrivFoljesedel();
             for (String rad : foljesedel) {
@@ -101,6 +101,7 @@ public class HanteraOrder {
 
     private Vara promptForVara(final Scanner scanner) {
         Vara vara;
+        Lager lager = Lager.getInstance();
         do {
             System.out.println(lager.toString());
             System.out.println("Skriv in den vara du vill beställa: ");
@@ -113,6 +114,7 @@ public class HanteraOrder {
         } while (vara == null);
         return vara;
     }
+
 
     private String[] skrivFoljesedel() {
         ArrayList<String> listafil = new ArrayList<String>();

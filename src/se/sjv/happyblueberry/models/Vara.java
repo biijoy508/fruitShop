@@ -6,6 +6,16 @@ public class Vara {
     private String type;
     private int amount;
 
+
+    public Vara(){
+
+    }
+
+
+    public Vara(final String type){
+        this.type = type;
+    }
+
     public void setPrice(final double price) {
         this.price = price;
 
@@ -27,7 +37,6 @@ public class Vara {
 
     public void setAmount(final int amount) {
         this.amount = amount;
-
     }
 
     public int getAmount() {

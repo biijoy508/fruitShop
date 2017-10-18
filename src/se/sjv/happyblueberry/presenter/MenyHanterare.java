@@ -68,7 +68,7 @@ public class MenyHanterare {
                 break;
 
             case '5':
-                HanteraFrukt frukthanterare = new HanteraFrukt();
+                HanteraLager.getInstance().läggTillNyFruktsortTillLager();
                 break;
 
             default:
@@ -77,9 +77,9 @@ public class MenyHanterare {
     }
 
     private void skrivUtGrossister() {
-        System.out.println("Grossister");
+        System.out.println("GROSSISTER:");
         Grossister grossister = Grossister.getInstance();
-        for(Grossist grossist : grossister.grossistLista) {
+        for(Grossist grossist : grossister.grossistMap.values()) {
             System.out.println(grossist.toString());
         }
     }
