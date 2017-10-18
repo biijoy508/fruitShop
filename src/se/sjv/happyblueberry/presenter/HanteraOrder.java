@@ -3,6 +3,7 @@ package se.sjv.happyblueberry.presenter;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -75,12 +76,17 @@ public class HanteraOrder {
     }
 
     private int promptForAntal(final Scanner scanner, final Vara vara) {
-        int antal;
+        int antal = 0;
         boolean isOk;
         do {
             isOk = true;
             System.out.println("Välj antal ");
+            try{
             antal = scanner.nextInt();
+            }catch(InputMismatchException e){
+              isOk = false;
+              continue;
+            }
             if (antal <= 0) {
                 isOk = false;
                 System.out.println("Antalet måste vara större än 0.");
