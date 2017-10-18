@@ -71,6 +71,11 @@ public class MenyHanterare {
                 HanteraLager.getInstance().läggTillNyFruktsortTillLager();
                 break;
 
+            case '6':
+                HanteraLager.getInstance().skrivUtFrukterSomMåsteBeställas();
+                break;
+
+
             default:
                 break;
         }
@@ -97,6 +102,7 @@ public class MenyHanterare {
         System.out.println("3. Lista grossister");
         System.out.println("4. Lägg till grossist");
         System.out.println("5. Lägg till frukt");
+        System.out.println("6. Skriv ut vad som behöver beställas:");
         System.out.println("0. Avsluta");
     }
 

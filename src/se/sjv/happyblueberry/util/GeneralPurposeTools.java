@@ -4,10 +4,6 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-import se.sjv.happyblueberry.models.Vara;
-import se.sjv.happyblueberry.persistence.Lager;
-import se.sjv.happyblueberry.presenter.HanteraLager;
-
 public class GeneralPurposeTools {
     public static String promptForString() {
         Scanner scanner = new Scanner(System.in);
@@ -68,22 +64,8 @@ public class GeneralPurposeTools {
         return nummer;
     }
 
-    public static Boolean varnaFörLågtLagerSaldo(final String varuNamn){
-        Vara vara = Lager.getInstance().lagerMap.get(varuNamn);
-        int antalKvar = vara.getAmount();
 
-        if(HanteraLager.getInstance().getFruktAttBeställa().containsKey(varuNamn)){
-            HanteraLager.getInstance().getFruktAttBeställa().get(varuNamn).setAmount(antalKvar);
-            return true;
-        }
 
-        if(antalKvar < 10 && antalKvar >= 0){
-            HanteraLager.getInstance().addToFruktAttBeställa(vara);
-            return true;
-        }
-
-        return false;
-    }
 
     public static String generateRandomGrossistName(){
 

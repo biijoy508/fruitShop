@@ -13,6 +13,15 @@ public class HanteraLager {
     private static HanteraLager hanteraFrukt;
     private HashMap<String, Vara> fruktAttBeställa;
 
+    public void skrivUtFrukterSomMåsteBeställas() {
+        System.out.println("\nFrukter som behöver beställas: ");
+
+        for(Vara vara : fruktAttBeställa.values()){
+         System.out.println("Frukt: " + vara.getType() + " antal: " + vara.getAmount());
+        }
+        System.out.println("");
+    }
+
     public HanteraLager() {
         fruktAttBeställa = new HashMap<>();
     }
@@ -116,6 +125,47 @@ public class HanteraLager {
        }
 
        return grossisterSomHarFrukten;
+    }
+
+    public Boolean varnaFörLågtLagerSaldo(final String varuNamn){
+        Vara vara = Lager.getInstance().lagerMap.get(varuNamn);
+        int antalKvar = vara.getAmount();
+
+        if(getFruktAttBeställa().containsKey(varuNamn)){
+            getFruktAttBeställa().get(varuNamn).setAmount(antalKvar);
+            skrivUtVarning(varuNamn, antalKvar);
+            return true;
+        }
+
+        if(antalKvar < 10 && antalKvar > 0){
+            addToFruktAttBeställa(vara);
+            skrivUtVarning(varuNamn, antalKvar);
+            return true;
+        }
+
+        if(antalKvar == 0){
+            addToFruktAttBeställa(vara);
+            tvingadBeställningFörSlutVara(varuNamn);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void tvingadBeställningFörSlutVara(final String varuNamn){
+        System.out.println("\nSTOPP: Det finns inga " + varuNamn + " kvar på lagret, och du MÅSTE nu beställa fler " + varuNamn);
+        System.out.println("Dessutom finns det inte många kvar av följande frukter: ");
+        skrivUtFrukterSomMåsteBeställas();
+        while(true){
+
+        }
+
+
+    }
+
+    private void skrivUtVarning(final String varuNamn, final int antalKvar) {
+        System.out.println("\nVARNING: Det finns bara " + antalKvar + " " + varuNamn + " kvar. Beställ fler innan det tar slut");
+
     }
 
 }
