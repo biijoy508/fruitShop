@@ -6,7 +6,6 @@ public class Vara {
     private String type;
     private int amount;
 
-
     public Vara(){
 
     }

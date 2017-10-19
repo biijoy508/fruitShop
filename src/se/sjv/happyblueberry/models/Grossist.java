@@ -2,14 +2,16 @@ package se.sjv.happyblueberry.models;
 
 import java.util.HashMap;
 
+import se.sjv.happyblueberry.util.GeneralPurposeTools;
+
 public class Grossist {
     private String namn;
-    //private List<String> varuLista;
     private HashMap<String, Vara> varuMap;
     private int orderMinimiantal = 0;
 
     public Grossist(){
         varuMap = new HashMap<>();
+        setOrderMinimiantal(GeneralPurposeTools.generateRandomWithinRange(10, 20));
     }
     public String getNamn() {
         return namn;

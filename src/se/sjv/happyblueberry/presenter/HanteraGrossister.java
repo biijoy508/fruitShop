@@ -30,11 +30,10 @@ public class HanteraGrossister {
         grossister.grossistMap.put(grossist.getNamn(), grossist);
     }
 
-    public void skapaNyGrossistMedVara(final Vara vara){
+    public void skapaNyGrossistMedNyVara(final Vara nyVara){
         Grossist grossist = new Grossist();
-        grossist.setNamn(GeneralPurposeTools.generateRandomGrossistName());
-        grossist.setOrderMinimiantal(vara.getAmount());
-        grossist.läggTillVara(vara);
+        grossist.setNamn(GeneralPurposeTools.generateRandomName());
+        grossist.läggTillVara(nyVara);
         Grossister.getInstance().grossistMap.put(grossist.getNamn(), grossist);
     }
 }

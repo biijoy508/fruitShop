@@ -11,19 +11,13 @@ import se.sjv.happyblueberry.util.GeneralPurposeTools;
 
 public class HanteraLager {
     private static HanteraLager hanteraFrukt;
-    private HashMap<String, Vara> fruktAttBeställa;
-
-    public void skrivUtFrukterSomMåsteBeställas() {
-        System.out.println("\nFrukter som behöver beställas: ");
-
-        for(Vara vara : fruktAttBeställa.values()){
-         System.out.println("Frukt: " + vara.getType() + " antal: " + vara.getAmount());
-        }
-        System.out.println("");
-    }
+    private HashMap<String, Vara> fruktMedLågtAntal;
+    private HashMap<String, Vara> fruktSomÄrSlut;
 
     public HanteraLager() {
-        fruktAttBeställa = new HashMap<>();
+        fruktMedLågtAntal = new HashMap<>();
+        fruktSomÄrSlut = new HashMap<>();
+
     }
 
     public static HanteraLager getInstance(){
@@ -98,20 +92,34 @@ public class HanteraLager {
         }
     }
 
-    public HashMap<String, Vara> getFruktAttBeställa() {
-        return fruktAttBeställa;
+    public HashMap<String, Vara> getFruktMedLågtAntal() {
+        return fruktMedLågtAntal;
+    }
+
+    public HashMap<String, Vara> getFruktSomÄrSlut() {
+        return fruktSomÄrSlut;
     }
 
 
-    public void addToFruktAttBeställa(final Vara vara){
-        fruktAttBeställa.put(vara.getType(), vara);
+    public void addToFruktMedLågtAntal(final Vara vara){
+        fruktMedLågtAntal.put(vara.getType(), vara);
+    }
+
+    public void removeFromFruktMedLågtAntal(final Vara vara){
+        fruktMedLågtAntal.remove(vara.getType());
+    }
+
+    public void addToFruktSomÄrSlut(final Vara vara){
+        fruktSomÄrSlut.put(vara.getType(), vara);
     }
 
    public void kollaFruktHosExisterandeGrossister(final String fruktType, final Vara vara){
+
        ArrayList<Grossist> grossister = vilkaGrossisterHarFrukten(fruktType);
+
        if(grossister.size() <= 0){
            HanteraGrossister hanteraGrossister = new HanteraGrossister();
-           hanteraGrossister.skapaNyGrossistMedVara(vara);
+           hanteraGrossister.skapaNyGrossistMedNyVara(vara);
        }
    }
 
@@ -131,20 +139,21 @@ public class HanteraLager {
         Vara vara = Lager.getInstance().lagerMap.get(varuNamn);
         int antalKvar = vara.getAmount();
 
-        if(getFruktAttBeställa().containsKey(varuNamn)){
-            getFruktAttBeställa().get(varuNamn).setAmount(antalKvar);
+        if(getFruktMedLågtAntal().containsKey(varuNamn)){
+            getFruktMedLågtAntal().get(varuNamn).setAmount(antalKvar);
             skrivUtVarning(varuNamn, antalKvar);
             return true;
         }
 
         if(antalKvar < 10 && antalKvar > 0){
-            addToFruktAttBeställa(vara);
+            addToFruktMedLågtAntal(vara);
             skrivUtVarning(varuNamn, antalKvar);
             return true;
         }
 
         if(antalKvar == 0){
-            addToFruktAttBeställa(vara);
+            addToFruktSomÄrSlut(vara);
+            removeFromFruktMedLågtAntal(vara);
             tvingadBeställningFörSlutVara(varuNamn);
             return true;
         }
@@ -153,19 +162,22 @@ public class HanteraLager {
     }
 
     private void tvingadBeställningFörSlutVara(final String varuNamn){
-        System.out.println("\nSTOPP: Det finns inga " + varuNamn + " kvar på lagret, och du MÅSTE nu beställa fler " + varuNamn);
-        System.out.println("Dessutom finns det inte många kvar av följande frukter: ");
-        skrivUtFrukterSomMåsteBeställas();
-        while(true){
-
-        }
-
+        System.out.println("\nSTOPP: Det finns inga " + varuNamn + " kvar på lagret, och det måste beställas fler" + varuNamn);
+        HanteraGrossistBeställning.getInstance().hittaLämpligGrossistAttBeställaIfrån();
 
     }
 
     private void skrivUtVarning(final String varuNamn, final int antalKvar) {
         System.out.println("\nVARNING: Det finns bara " + antalKvar + " " + varuNamn + " kvar. Beställ fler innan det tar slut");
-
     }
 
+    public void skrivUtFrukterMedLågtAntal() {
+        System.out.println("\nFrukter som behöver beställas: ");
+
+        for(Vara vara : fruktMedLågtAntal.values()){
+         System.out.println("Frukt: " + vara.getType() + " antal: " + vara.getAmount());
+        }
+
+        System.out.println("");
+    }
 }

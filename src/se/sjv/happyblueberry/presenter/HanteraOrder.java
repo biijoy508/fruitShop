@@ -12,6 +12,7 @@ import se.sjv.happyblueberry.models.OrderItem;
 import se.sjv.happyblueberry.models.Vara;
 import se.sjv.happyblueberry.persistence.Lager;
 import se.sjv.happyblueberry.util.FileUtil;
+import se.sjv.happyblueberry.util.GeneralPurposeTools;
 
 public class HanteraOrder {
 
@@ -50,7 +51,7 @@ public class HanteraOrder {
 
         if (input == PLACE_ORDER) {
             System.out.println("Skriv in namn");
-            String namn = scanner.nextLine();
+            String namn = GeneralPurposeTools.promptForString();
             order.setKund(namn);
             String[] foljesedel = skrivFoljesedel();
             for (String rad : foljesedel) {

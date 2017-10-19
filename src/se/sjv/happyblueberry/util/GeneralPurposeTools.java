@@ -7,7 +7,25 @@ import java.util.Scanner;
 public class GeneralPurposeTools {
     public static String promptForString() {
         Scanner scanner = new Scanner(System.in);
-        String string = scanner.nextLine();
+        String string = "";
+        boolean okInput = false;
+        do
+        {
+            try{
+                okInput = true;
+                string = scanner.nextLine();
+                string = string.trim();
+            }catch(InputMismatchException e){
+                System.out.println("Konstigt.");
+                okInput = false;
+            }
+
+            if(string.length() < 1){
+                okInput = false;
+                System.out.println("Du måste skriva in något.");
+            }
+
+        }while(!okInput);
 
         return string;
     }
@@ -64,10 +82,14 @@ public class GeneralPurposeTools {
         return nummer;
     }
 
+    public static int generateRandomWithinRange(final int lowerBound, final int upperBound){
+        Random r = new Random();
+        return r.nextInt(upperBound) + lowerBound;
+    }
 
 
 
-    public static String generateRandomGrossistName(){
+    public static String generateRandomName(){
 
         String[] Beginning = { "Kr", "Ca", "Ra", "Mrok", "Cru",
                                "Ray", "Bre", "Zed", "Drak", "Mor", "Jag", "Mer", "Jar", "Mjol",

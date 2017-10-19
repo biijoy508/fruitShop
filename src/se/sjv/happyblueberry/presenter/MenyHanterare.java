@@ -72,7 +72,7 @@ public class MenyHanterare {
                 break;
 
             case '6':
-                HanteraLager.getInstance().skrivUtFrukterSomMåsteBeställas();
+                HanteraLager.getInstance().skrivUtFrukterMedLågtAntal();
                 break;
 
 
