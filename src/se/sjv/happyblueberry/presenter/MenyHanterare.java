@@ -10,7 +10,7 @@ import java.util.Scanner;
 import se.sjv.happyblueberry.models.Grossist;
 import se.sjv.happyblueberry.models.Order;
 import se.sjv.happyblueberry.models.Vara;
-import se.sjv.happyblueberry.persistence.Grossister;
+import se.sjv.happyblueberry.persistence.GrossistStorage;
 import se.sjv.happyblueberry.persistence.Lager;
 import se.sjv.happyblueberry.util.FileUtil;
 
@@ -33,7 +33,7 @@ public class MenyHanterare {
     public void run() {
         menyLoop();
         sparaLager();
-        Grossister.getInstance().sparaGrossister();
+        GrossistStorage.getInstance().sparaGrossister();
     }
 
     private void menyLoop() {
@@ -83,7 +83,7 @@ public class MenyHanterare {
 
     private void skrivUtGrossister() {
         System.out.println("GROSSISTER:");
-        Grossister grossister = Grossister.getInstance();
+        GrossistStorage grossister = GrossistStorage.getInstance();
         for(Grossist grossist : grossister.grossistMap.values()) {
             System.out.println(grossist.toString());
         }

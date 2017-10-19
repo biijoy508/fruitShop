@@ -8,19 +8,19 @@ import se.sjv.happyblueberry.models.Grossist;
 import se.sjv.happyblueberry.models.Vara;
 import se.sjv.happyblueberry.util.FileUtil;
 
-public class Grossister {
+public class GrossistStorage {
 
-    private static Grossister grossister;
+    private static GrossistStorage grossister;
     public HashMap<String, Grossist> grossistMap;
 
-    private Grossister() {
+    private GrossistStorage() {
         grossistMap = new HashMap<>();
         laddaGrossister();
     }
 
-    public static Grossister getInstance() {
+    public static GrossistStorage getInstance() {
         if (grossister == null) {
-            grossister = new Grossister();
+            grossister = new GrossistStorage();
         }
 
         return grossister;

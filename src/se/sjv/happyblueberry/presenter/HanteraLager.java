@@ -5,31 +5,29 @@ import java.util.HashMap;
 
 import se.sjv.happyblueberry.models.Grossist;
 import se.sjv.happyblueberry.models.Vara;
-import se.sjv.happyblueberry.persistence.Grossister;
+import se.sjv.happyblueberry.persistence.GrossistStorage;
 import se.sjv.happyblueberry.persistence.Lager;
 import se.sjv.happyblueberry.util.GeneralPurposeTools;
 
 public class HanteraLager {
-    private static HanteraLager hanteraFrukt;
+    private static HanteraLager hanteraLager;
     private HashMap<String, Vara> fruktMedLågtAntal;
     private HashMap<String, Vara> fruktSomÄrSlut;
 
     public HanteraLager() {
         fruktMedLågtAntal = new HashMap<>();
         fruktSomÄrSlut = new HashMap<>();
-
     }
 
     public static HanteraLager getInstance(){
-        if (hanteraFrukt == null) {
-            hanteraFrukt = new HanteraLager();
+        if (hanteraLager == null) {
+            hanteraLager = new HanteraLager();
         }
 
-        return hanteraFrukt;
+        return hanteraLager;
     }
 
     public void läggTillNyFruktsortTillLager(){
-
         Boolean fruktOkej = false;
         do{
             System.out.println("Ange frukt eller '0' för att avsluta: ");
@@ -126,7 +124,7 @@ public class HanteraLager {
     public  ArrayList<Grossist> vilkaGrossisterHarFrukten(final String fruktType){
        ArrayList<Grossist> grossisterSomHarFrukten = new ArrayList<>();
 
-       for(Grossist grossist : Grossister.getInstance().grossistMap.values()){
+       for(Grossist grossist : GrossistStorage.getInstance().grossistMap.values()){
            if(grossist.getVaruMap().containsKey(fruktType)){
                grossisterSomHarFrukten.add(grossist);
            }

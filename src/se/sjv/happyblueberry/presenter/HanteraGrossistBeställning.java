@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import se.sjv.happyblueberry.models.Grossist;
 import se.sjv.happyblueberry.models.Vara;
-import se.sjv.happyblueberry.persistence.Grossister;
+import se.sjv.happyblueberry.persistence.GrossistStorage;
 import se.sjv.happyblueberry.persistence.Lager;
 import se.sjv.happyblueberry.util.GeneralPurposeTools;
 
@@ -20,17 +20,13 @@ public class HanteraGrossistBeställning {
     }
 
     public void hittaLämpligGrossistAttBeställaIfrån(){
-
-
         HashMap<String, Vara> frukterSomÄrSlut = HanteraLager.getInstance().getFruktSomÄrSlut();
-
-        Grossist grossistSomHarAllaFrukter = hittaSimpelBästaGrossist(frukterSomÄrSlut);
-
+        Grossist grossistSomHarAllaFrukter = hittaBästaGrossist(frukterSomÄrSlut);
         beställFrukterFrånGrossist(grossistSomHarAllaFrukter);
+
     }
 
     private void beställFrukterFrånGrossist(final Grossist grossist) {
-
         for (Vara vara : HanteraLager.getInstance().getFruktSomÄrSlut().values()) {
             if (grossist != null) {
                 skapaGrossistBeställning(grossist, vara.getType());
@@ -45,8 +41,6 @@ public class HanteraGrossistBeställning {
     private void skapaGrossistBeställning(final Grossist grossist, final String frukt) {
         System.out.println("\nBeställer från grossist: " + grossist.getNamn());
         bekräftaBesällning(frukt, grossist.getOrderMinimiantal());
-
-
     }
 
     private void bekräftaBesällning(final String frukt, final int antal) {
@@ -76,21 +70,19 @@ public class HanteraGrossistBeställning {
     }
 
     private Grossist hittaNågonGrossistSomHarFrukten(final String fruktType) {
-        Grossist grossistToReturn = null;
+        Grossist grossistAttReturnera = null;
 
-        for(Grossist grossist : Grossister.getInstance().grossistMap.values()){
+        for(Grossist grossist : GrossistStorage.getInstance().grossistMap.values()){
             if(grossist.getVaruMap().containsKey(fruktType)){
-                grossistToReturn = grossist;
+                grossistAttReturnera = grossist;
                 break;
             }
         }
-
-        return grossistToReturn;
-
+        return grossistAttReturnera;
     }
 
-    private Grossist hittaSimpelBästaGrossist(final HashMap<String, Vara> frukterSomÄrSlut) {
-        for (Grossist grossist : Grossister.getInstance().grossistMap.values()){
+    private Grossist hittaBästaGrossist(final HashMap<String, Vara> frukterSomÄrSlut) {
+        for (Grossist grossist : GrossistStorage.getInstance().grossistMap.values()){
             int träffCounter = 0;
             for( Vara vara : frukterSomÄrSlut.values()) {
                 if(grossist.getVaruMap().containsKey(vara.getType())){

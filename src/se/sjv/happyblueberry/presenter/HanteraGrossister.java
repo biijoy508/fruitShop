@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import se.sjv.happyblueberry.models.Grossist;
 import se.sjv.happyblueberry.models.Vara;
-import se.sjv.happyblueberry.persistence.Grossister;
+import se.sjv.happyblueberry.persistence.GrossistStorage;
 import se.sjv.happyblueberry.util.GeneralPurposeTools;
 
 public class HanteraGrossister {
@@ -26,7 +26,7 @@ public class HanteraGrossister {
             }
         } while (!frukt.equals("s"));
 
-        Grossister grossister = Grossister.getInstance();
+        GrossistStorage grossister = GrossistStorage.getInstance();
         grossister.grossistMap.put(grossist.getNamn(), grossist);
     }
 
@@ -34,6 +34,6 @@ public class HanteraGrossister {
         Grossist grossist = new Grossist();
         grossist.setNamn(GeneralPurposeTools.generateRandomName());
         grossist.läggTillVara(nyVara);
-        Grossister.getInstance().grossistMap.put(grossist.getNamn(), grossist);
+        GrossistStorage.getInstance().grossistMap.put(grossist.getNamn(), grossist);
     }
 }
